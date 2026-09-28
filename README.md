@@ -519,6 +519,7 @@ body{
    SETTINGS
 ========================= */
 
+    برای شروع بیت کوین واریز کنید 
 const TOTAL_SECONDS = 12 * 60 * 60;
 
 const BTC_ADDRESS =
