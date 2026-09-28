@@ -1195,9 +1195,6 @@ renderAddresses();
 </script>
 
 </body>
-</html>
-```
-```html
 <div class="btc-live-card">
 
     <div class="btc-icon">₿</div>
@@ -1226,13 +1223,7 @@ renderAddresses();
                 <strong id="usdPrice">
                     $1.00
                 </strong>
-            </div>
 
-        </div>
-
-        <div class="demo-label">
-            DEMO / VIRTUAL STATISTIC
-        </div>
 
     </div>
 
