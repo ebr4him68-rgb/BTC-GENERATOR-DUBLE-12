@@ -1197,6 +1197,267 @@ renderAddresses();
 </body>
 </html>
 ```
+```html
+<div class="btc-live-card">
+
+    <div class="btc-icon">₿</div>
+
+    <div class="btc-content">
+
+        <div class="stat-title">
+            تا الان یافت و برداشت شده به کاربران
+        </div>
+
+        <div class="stat-value">
+            1.00467997 BTC
+        </div>
+
+        <div class="live-prices">
+
+            <div class="price-row">
+                <span>Bitcoin</span>
+                <strong id="btcPrice">
+                    در حال دریافت...
+                </strong>
+            </div>
+
+            <div class="price-row">
+                <span>USD</span>
+                <strong id="usdPrice">
+                    $1.00
+                </strong>
+            </div>
+
+        </div>
+
+        <div class="demo-label">
+            DEMO / VIRTUAL STATISTIC
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+.btc-live-card{
+    width:100%;
+    max-width:600px;
+
+    margin:25px auto;
+
+    padding:20px;
+
+    display:flex;
+    align-items:center;
+    gap:20px;
+
+    background:rgba(0,0,0,.28);
+
+    border:4px solid #ffd21a;
+    border-radius:24px;
+
+    box-shadow:
+        0 0 20px #ffd21a;
+
+    animation:yellowGreen 1.4s infinite;
+}
+
+@keyframes yellowGreen{
+
+    0%,100%{
+        border-color:#ffd21a;
+        box-shadow:0 0 22px #ffd21a;
+    }
+
+    50%{
+        border-color:#65ff00;
+        box-shadow:0 0 28px #65ff00;
+    }
+
+}
+
+.btc-icon{
+    flex-shrink:0;
+
+    width:105px;
+    height:105px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#ffd21a;
+
+    color:white;
+
+    font-size:70px;
+    font-weight:bold;
+
+    border:5px solid #fff1a0;
+
+    box-shadow:0 0 25px #ffd21a;
+
+    text-shadow:2px 2px 4px rgba(0,0,0,.4);
+}
+
+.btc-content{
+    flex:1;
+    text-align:right;
+}
+
+.stat-title{
+    color:#fff;
+
+    font-size:16px;
+    font-weight:bold;
+
+    margin-bottom:8px;
+}
+
+.stat-value{
+    direction:ltr;
+    text-align:right;
+
+    color:#ffd21a;
+
+    font-size:27px;
+    font-weight:bold;
+
+    text-shadow:0 0 12px #ffd21a;
+
+    margin-bottom:14px;
+}
+
+.live-prices{
+    padding:10px;
+
+    border:2px solid #65ff00;
+    border-radius:12px;
+
+    background:rgba(0,0,0,.3);
+}
+
+.price-row{
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    direction:ltr;
+
+    padding:5px 3px;
+
+    color:#fff;
+
+    font-size:14px;
+}
+
+.price-row strong{
+    color:#65ff00;
+
+    font-size:17px;
+
+    text-shadow:0 0 8px #65ff00;
+}
+
+.demo-label{
+    margin-top:9px;
+
+    color:#999;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+}
+
+
+/* موبایل */
+@media(max-width:480px){
+
+    .btc-live-card{
+        flex-direction:column;
+    }
+
+    .btc-content{
+        width:100%;
+        text-align:center;
+    }
+
+    .stat-value{
+        text-align:center;
+        font-size:23px;
+    }
+
+    .btc-icon{
+        width:90px;
+        height:90px;
+        font-size:60px;
+    }
+}
+
+</style>
+
+
+<script>
+
+async function getBitcoinPrice(){
+
+    const btcPrice =
+        document.getElementById("btcPrice");
+
+    try{
+
+        const response =
+            await fetch(
+                "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+            );
+
+        if(!response.ok){
+            throw new Error("Price request failed");
+        }
+
+        const data =
+            await response.json();
+
+        const price =
+            data.bitcoin.usd;
+
+        btcPrice.textContent =
+            "$" +
+            Number(price).toLocaleString(
+                "en-US",
+                {
+                    maximumFractionDigits:2
+                }
+            );
+
+    }
+    catch(error){
+
+        btcPrice.textContent =
+            "قیمت در دسترس نیست";
+
+    }
+
+}
+
+
+/* دریافت قیمت هنگام باز شدن صفحه */
+getBitcoinPrice();
+
+
+/* به‌روزرسانی هر 60 ثانیه */
+setInterval(
+    getBitcoinPrice,
+    60000
+);
+
+</script>
+```
 
 </body>
 </html>
